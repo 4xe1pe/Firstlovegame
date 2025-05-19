@@ -5,14 +5,13 @@ function love.load()
   math.randomseed(os.time())
   love.window.setMode(1600, 720, { resizable = false, vsync = true, fullscreen = true })
   
-  --camerau
+  --camera
   camera = require"libreria/camera"
   cam = camera.new()
   
   --mappa
   sti = require"libreria/sti"
   gamemap = sti("maps/mappa.lua")
-  
   --roba per immagini
   sprites = {}
   sprites.background = love.graphics.newImage("sprites/background.png")
@@ -151,9 +150,13 @@ end
   
 function love.draw()
   cam:attach()
-    gamemap:drawLayer("Tile 1")
-    gamemap:drawLayer("altr")
-    gamemap:drawLayer("sangue")
+  local scale = 4
+    love.graphics.push()
+    love.graphics.scale(scale)
+    gamemap:drawLayer(gamemap.layers["Tile 1"])
+    gamemap:drawLayer(gamemap.layers["altr"])
+    gamemap:drawLayer(gamemap.layers["sangue"])
+    love.graphics.pop()
     if gamestate == 1 then
       love.graphics.setFont(start)
       love.graphics.printf("schiaccia X per cominciare",0, 70, love.graphics.getWidth(), "center")
