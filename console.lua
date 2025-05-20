@@ -25,8 +25,10 @@ end
 function M.draw()
 -- codice per draw
 if console == true then
-love.graphics.print(player.position,10, 10)
-love.graphics.print(grandezzaschermo, 10 , 30)
+love.graphics.print(player.position,cam.x -350, cam.y -32)
+love.graphics.print(grandezzaschermo,cam.x -350, cam.y -52)
+love.graphics.print(numerozoombie,cam.x -350, cam.y -72)
+love.graphics.print(numerobullet,cam.x -350, cam.y -92)
 end
 end
 

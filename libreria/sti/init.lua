@@ -1142,7 +1142,6 @@ function Map:setFlippedGID(gid)
 	end
 
 	local tile = self.tiles[realgid]
-	local data = {
 		id         = tile.id,
 		gid        = gid,
 		tileset    = tile.tileset,

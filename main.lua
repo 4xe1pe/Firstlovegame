@@ -10,11 +10,12 @@ function love.load()
   cam = camera.new()
   
   --mappa
-  sti = require"libreria/sti"
-  gamemap = sti("maps/mappa.lua")
+--  sti = require"libreria/sti"
+--  gamemap = sti("maps/mappa.lua")
   --roba per immagini
   sprites = {}
   sprites.background = love.graphics.newImage("sprites/background.png")
+  sprites.background:setFilter("nearest", "nearest")
   sprites.bullet = love.graphics.newImage("sprites/bullet.png")
   sprites.player = love.graphics.newImage("sprites/player.png")
   sprites.player:setFilter("nearest", "nearest")
@@ -40,8 +41,8 @@ function love.load()
 
   
   player = {}
-  player.x = love.graphics.getWidth() / 2
-  player.y = love.graphics.getHeight() / 2
+  player.x = 360
+  player.y = 152
   player.speed = 170
   movement.load(true, player,pointer)
 
@@ -64,6 +65,25 @@ end
 function love.update(dt)
   --cam movement
   cam:lookAt(player.x,player.y)
+  local w = love.graphics.getWidth()
+  local h = love.graphics.getHeight()
+  local bw = sprites.background:getWidth()
+  local bh = sprites.background:getHeight()
+  if cam.x < w/2 then 
+    cam.x = w/2
+  end
+  if cam.y < h/2 then
+    cam.y = h/2
+  end
+  
+  if cam.x > (bw - w/2) then
+    cam.x = (bw - w/2)
+  end
+  if cam.y > (bh - h/2) then
+    cam.y = (bh - h/2)
+  end
+  
+  
   --player movement
   if gamestate == 2  then
   movement.update(dt)
@@ -88,8 +108,8 @@ function love.update(dt)
     b.y = b.y + math.sin( b.direction ) * b.speed * dt
   end
   for i=#bullets, 1, -1 do 
-    local b = bullets[i]
-    if b.x < 0 or b.y < 0 or b.x > love.graphics.getWidth() or b.y > love.graphics.getHeight() then
+   local b = bullets[i]
+    if b.x < bw-bh or b.y < bh-bh or b.x > bw or b.y > bh then
       table.remove(bullets, i)
     end
   end
@@ -150,24 +170,14 @@ end
   
 function love.draw()
   cam:attach()
-  local scale = 4
-    love.graphics.push()
-    love.graphics.scale(scale)
-    gamemap:drawLayer(gamemap.layers["Tile 1"])
-    gamemap:drawLayer(gamemap.layers["altr"])
-    gamemap:drawLayer(gamemap.layers["sangue"])
-    love.graphics.pop()
+       love.graphics.draw(sprites.background,0,0,nil)
     if gamestate == 1 then
       love.graphics.setFont(start)
-      love.graphics.printf("schiaccia X per cominciare",0, 70, love.graphics.getWidth(), "center")
+      love.graphics.printf("schiaccia X per cominciare",cam.x - 360, cam.y -92, love.graphics.getWidth(), "center")
       end
     love.graphics.setFont(font)
-    love.graphics.printf("punti: " ..score, 0, 50, love.graphics.getWidth(), "center")
+    love.graphics.printf("punti: " ..score, cam.x - 360, cam.y-122, love.graphics.getWidth(), "center")
    console.draw()
-  
-   if gamestate == 2 then
-    love.graphics.draw(sprites.pointer,pointer.x, pointer.y)
-   end
   
     for i,z in ipairs(zombies) do
       love.graphics.draw(sprites.zombie, z.x, z.y, zombierot(z), nil, nil, sprites.zombie:getWidth()/2, sprites.zombie:getHeight()/2)
@@ -177,11 +187,15 @@ function love.draw()
     end
     love.graphics.draw(sprites.player, player.x, player.y, rotazioneplayer(), nil, nil, sprites.player:getWidth()/2, sprites.player:getHeight()/2)
   cam:detach()
+  if gamestate == 2 then
+    love.graphics.draw(sprites.pointer,pointer.x, pointer.y)
+   end
 end
 
 
 function rotazioneplayer ()
-  return math.atan2(pointer.y - player.y, pointer.x - player.x)
+  local mx, my = cam:worldCoords(pointer.x, pointer.y)
+  return math.atan2(my - player.y, mx - player.x)
 end
 
 function zombierot(enemy)
