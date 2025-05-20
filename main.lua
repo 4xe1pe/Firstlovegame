@@ -9,13 +9,14 @@ function love.load()
   camera = require"libreria/camera"
   cam = camera.new()
   
-  --mappa
---  sti = require"libreria/sti"
---  gamemap = sti("maps/mappa.lua")
   --roba per immagini
   sprites = {}
-  sprites.background = love.graphics.newImage("sprites/background.png")
+  sprites.background = love.graphics.newImage("sprites/alberi.png")
   sprites.background:setFilter("nearest", "nearest")
+  sprites.trees = love.graphics.newImage("sprites/sangue_alberi.png")
+  sprites.trees:setFilter("nearest", "nearest")
+  sprites.blood = love.graphics.newImage("sprites/sanguet.png")
+  sprites.blood:setFilter("nearest", "nearest")
   sprites.bullet = love.graphics.newImage("sprites/bullet.png")
   sprites.player = love.graphics.newImage("sprites/player.png")
   sprites.player:setFilter("nearest", "nearest")
@@ -23,10 +24,6 @@ function love.load()
   sprites.zombie:setFilter("nearest", "nearest")
   sprites.pointer = love.graphics.newImage("sprites/pointer.png")
   sprites.pointer:setFilter("nearest", "nearest")
-  sprites.playernoarm= love.graphics.newImage("sprites/playernoarm.png")
-  sprites.playernoarm:setFilter("nearest", "nearest")
-  sprites.arm = love.graphics.newImage("sprites/arm.png")
-  sprites.arm:setFilter("nearest", "nearest")
   --zombie 
   zombies = {}
   --proiettile
@@ -49,6 +46,8 @@ function love.load()
 
   --roba per lo schermo
   start = love.graphics.newFont(30)
+  bw = sprites.background:getWidth()
+  bh = sprites.background:getHeight()
   --roba per controller
   joysticks = love.joystick.getJoysticks()
   joystick = joysticks[1]
@@ -67,8 +66,7 @@ function love.update(dt)
   cam:lookAt(player.x,player.y)
   local w = love.graphics.getWidth()
   local h = love.graphics.getHeight()
-  local bw = sprites.background:getWidth()
-  local bh = sprites.background:getHeight()
+  
   if cam.x < w/2 then 
     cam.x = w/2
   end
@@ -171,6 +169,18 @@ end
 function love.draw()
   cam:attach()
        love.graphics.draw(sprites.background,0,0,nil)
+    love.graphics.draw(sprites.blood,0,0,nil)
+    love.graphics.draw(sprites.player, player.x, player.y, rotazioneplayer(), nil, nil, sprites.player:getWidth()/2, sprites.player:getHeight()/2)
+    love.graphics.setColor(1,1,1,1)
+    for i,z in ipairs(zombies) do
+      love.graphics.draw(sprites.zombie, z.x, z.y, zombierot(z), nil, nil, sprites.zombie:getWidth()/2, sprites.zombie:getHeight()/2)
+    end
+    for i,b in ipairs(bullets) do
+      love.graphics.draw(sprites.bullet, b.x, b.y, rotazioneplayer(), nil, nil, sprites.bullet:getWidth()/2,-14)
+    end
+    love.graphics.setColor(1,1,1, 0.5)
+    love.graphics.draw(sprites.trees,0,0,nil)
+    love.graphics.setColor(1,1,1, 1)
     if gamestate == 1 then
       love.graphics.setFont(start)
       love.graphics.printf("schiaccia X per cominciare",cam.x - 360, cam.y -92, love.graphics.getWidth(), "center")
@@ -179,13 +189,7 @@ function love.draw()
     love.graphics.printf("punti: " ..score, cam.x - 360, cam.y-122, love.graphics.getWidth(), "center")
    console.draw()
   
-    for i,z in ipairs(zombies) do
-      love.graphics.draw(sprites.zombie, z.x, z.y, zombierot(z), nil, nil, sprites.zombie:getWidth()/2, sprites.zombie:getHeight()/2)
-    end
-    for i,b in ipairs(bullets) do
-      love.graphics.draw(sprites.bullet, b.x, b.y, rotazioneplayer(), nil, nil, sprites.bullet:getWidth()/2,-14)
-    end
-    love.graphics.draw(sprites.player, player.x, player.y, rotazioneplayer(), nil, nil, sprites.player:getWidth()/2, sprites.player:getHeight()/2)
+    
   cam:detach()
   if gamestate == 2 then
     love.graphics.draw(sprites.pointer,pointer.x, pointer.y)
@@ -212,25 +216,19 @@ function zombiespawn()
   local side = math.random(1,4)
   if side == 1 then
     zombie.x = math.random(0, -40)
-    zombie.y = math.random(0, love.graphics.getHeight())
+    zombie.y = math.random(0,bh)
   elseif  side == 2 then
-    zombie.x = math.random(0, love.graphics.getWidth())
+    zombie.x = math.random(0,bw)
     zombie.y = math.random(0, -40)
   elseif  side == 3 then
-    zombie.x = math.random(love.graphics.getWidth(),love.graphics.getWidth() + 40 )
-    zombie.y = math.random(0, love.graphics.getHeight())
+    zombie.x = math.random(bw,bw + 40 )
+    zombie.y = math.random(0, bh)
   elseif side == 4 then
-    zombie.x = math.random(0, love.graphics.getWidth())
-    zombie.y = math.random(love.graphics.getHeight(),love.graphics.getHeight() + 40)
+    zombie.x = math.random(0, bw)
+    zombie.y = math.random(bh,bh + 40)
   end
 end
 
-function armo()
-  local arms = {}
-  arm.x = player.x
-  arm.y = player.y
-  table.insert(arm, arms)
-end
 
 function bulletspawn()
   local bullet = {}
