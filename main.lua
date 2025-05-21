@@ -15,6 +15,7 @@ function love.load()
   texture.load()
   --zombie 
   zombies = {}
+   
   --proiettile
   bullets = {}
   --roba puntatore e player
@@ -76,6 +77,11 @@ function love.update(dt)
   
   --player movement
   player.animation:update(dt)
+  for _, z in ipairs(zombies) do
+  if z.animation then
+    z.animation:update(dt)
+  end
+end
   local LsX = joystick:getGamepadAxis("leftx")
   local Lsy = joystick:getGamepadAxis("lefty")
   
@@ -138,7 +144,7 @@ function love.update(dt)
   if gamestate == 2 then
     timer = timer - dt
     if timer <= 0 then
-      --zombiespawn()
+      zombiespawn()
       maxtime = 0.95 ^ maxtime
       timer = maxtime
     end
@@ -178,7 +184,7 @@ function love.draw()
     player.animation:draw(player.spriteSheet, player.x, player.y, rotazioneplayer(), nil, nil, sprites.player:getWidth()/2, sprites.player:getHeight()/2)
     love.graphics.setColor(1,1,1,1)
     for i,z in ipairs(zombies) do
-      texture.draw(sprites.zombie, z.x, z.y, zombierot(z), nil, nil, sprites.zombie:getWidth()/2, sprites.zombie:getHeight()/2)
+      z.animation:draw(z.spriteSheet, z.x, z.y, zombierot(z), nil, nil, sprites.zombie:getWidth()/2, sprites.zombie:getHeight()/2)
     end
     for i,b in ipairs(bullets) do
       if bullets.randomico == 1 then
@@ -217,6 +223,10 @@ end
 
 function zombiespawn()
   local zombie = {}
+ zombie.spriteSheet = love.graphics.newImage("sprites/zombwalk.png")
+  zombie.grid = anim8.newGrid(35,45,zombie.spriteSheet:getWidth(), zombie.spriteSheet:getHeight())
+  zombie.animation = anim8.newAnimation(zombie.grid('1-3', 1), 0.2)
+  zombie.anim = zombie.animation
   zombie.x = 0
   zombie.y = 0
   zombie.speed = 140

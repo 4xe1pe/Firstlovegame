@@ -7,7 +7,7 @@ function M.load()
   sprites.bullet = love.graphics.newImage("sprites/bullet.png")
   sprites.pointer = love.graphics.newImage("sprites/pointer.png")
   sprites.player = love.graphics.newImage("sprites/player.png")
-  sprites.zombies = love.graphics.newImage("sprites/zombie.png")
+  sprites.zombie = love.graphics.newImage("sprites/zombie.png")
 end
 
 function M.draw(sprite, x,y, rot, sx, sy, ox,oy)
