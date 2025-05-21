@@ -41,7 +41,7 @@ function love.load()
   joystick = joysticks[1]
   
   -- settings
-  console.load(true)
+  console.load(false)
   gamestate = 1
   maxtime = 2
   timer = maxtime
@@ -185,9 +185,11 @@ function love.draw()
     love.graphics.setFont(font)
     love.graphics.printf("punti: " ..score, cam.x - 360, cam.y-122, love.graphics.getWidth(), "center")
    console.draw()
-  
-    
-  cam:detach()
+   cam:detach()
+  love.graphics.print("RS to move camera",10, 20)
+  love.graphics.print("LS to move", 10 , 40)
+  love.graphics.print("RB/R1 or LB/L1 to shoot",10,60)
+  love.graphics.print("or both",10, 80)
   if gamestate == 2 then
     love.graphics.draw(sprites.pointer,pointer.x, pointer.y)
    end
