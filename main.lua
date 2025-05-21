@@ -1,36 +1,39 @@
-local console = require("console")
-local movement = require("movement")
-local texture = require("texture")
+local console = require("libreria/console")
+local movement = require("libreria/movement")
+local texture = require("libreria/texture")
 local joysticks = {}
 function love.load()
   math.randomseed(os.time())
   love.window.setMode(1600, 720, { resizable = false, vsync = true, fullscreen = true })
+  --anim8
+  anim8 = require("libreria/anim8")
   
   --camera
   camera = require"libreria/camera"
   cam = camera.new()
-  
   --roba per immagini
   texture.load()
   --zombie 
   zombies = {}
   --proiettile
   bullets = {}
-  
-  
   --roba puntatore e player
   pointer = {}
   pointer.x = 200
   pointer.y = 200
   pointer.speed = 700
 
-  
   player = {}
+--  player.collider = World:newRectangleCollider(400,250,25,50)
+  player.spriteSheet = love.graphics.newImage("sprites/playerwalk.png")
+--  player.collider:setFixedRotation(true)
   player.x = 360
   player.y = 152
   player.speed = 170
+  player.grid = anim8.newGrid(35,45,player.spriteSheet:getWidth(), player.spriteSheet:getHeight())
   movement.load(true, player,pointer)
-
+  player.animation = anim8.newAnimation(player.grid('1-3', 1), 0.2)
+  player.anim = player.animation
 
   --roba per lo schermo
   start = love.graphics.newFont(30)
@@ -41,7 +44,7 @@ function love.load()
   joystick = joysticks[1]
   
   -- settings
-  console.load(false)
+  console.load(true)
   gamestate = 1
   maxtime = 2
   timer = maxtime
@@ -50,6 +53,7 @@ function love.load()
 end
 
 function love.update(dt)
+  --world:update(dt)
   --cam movement
   cam:lookAt(player.x,player.y)
   local w = love.graphics.getWidth()
@@ -71,6 +75,15 @@ function love.update(dt)
   
   
   --player movement
+  player.animation:update(dt)
+  local LsX = joystick:getGamepadAxis("leftx")
+  local Lsy = joystick:getGamepadAxis("lefty")
+  
+  if LsX <= -0.2 or LsX >= 0.2 or Lsy <= -0.2 or Lsy >= 0.2 then
+        player.anim = player.animation
+    elseif LsX == 0 or Lsy == 0 then
+        player.anim:gotoFrame(2)
+    end
   if gamestate == 2  then
   movement.update(dt)
   end 
@@ -125,7 +138,7 @@ function love.update(dt)
   if gamestate == 2 then
     timer = timer - dt
     if timer <= 0 then
-      zombiespawn()
+      --zombiespawn()
       maxtime = 0.95 ^ maxtime
       timer = maxtime
     end
@@ -162,7 +175,7 @@ end
 function love.draw()
   cam:attach()
     texture.draw(sprites.background,0,0,nil)
-    texture.draw(sprites.player, player.x, player.y, rotazioneplayer(), nil, nil, sprites.player:getWidth()/2, sprites.player:getHeight()/2)
+    player.animation:draw(player.spriteSheet, player.x, player.y, rotazioneplayer(), nil, nil, sprites.player:getWidth()/2, sprites.player:getHeight()/2)
     love.graphics.setColor(1,1,1,1)
     for i,z in ipairs(zombies) do
       texture.draw(sprites.zombie, z.x, z.y, zombierot(z), nil, nil, sprites.zombie:getWidth()/2, sprites.zombie:getHeight()/2)
@@ -186,12 +199,9 @@ function love.draw()
     love.graphics.printf("punti: " ..score, cam.x - 360, cam.y-122, love.graphics.getWidth(), "center")
    console.draw()
    cam:detach()
-  love.graphics.print("RS to move camera",10, 20)
-  love.graphics.print("LS to move", 10 , 40)
-  love.graphics.print("RB/R1 or LB/L1 to shoot",10,60)
-  love.graphics.print("or both",10, 80)
+   console.drew()
   if gamestate == 2 then
-    love.graphics.draw(sprites.pointer,pointer.x, pointer.y)
+    love.graphics.draw(sprites.pointer,pointer.x - 20, pointer.y)
    end
 end
 
