@@ -1,5 +1,6 @@
 local console = require("console")
 local movement = require("movement")
+local texture = require("texture")
 local joysticks = {}
 function love.load()
   math.randomseed(os.time())
@@ -10,20 +11,7 @@ function love.load()
   cam = camera.new()
   
   --roba per immagini
-  sprites = {}
-  sprites.background = love.graphics.newImage("sprites/alberi.png")
-  sprites.background:setFilter("nearest", "nearest")
-  sprites.trees = love.graphics.newImage("sprites/sangue_alberi.png")
-  sprites.trees:setFilter("nearest", "nearest")
-  sprites.blood = love.graphics.newImage("sprites/sanguet.png")
-  sprites.blood:setFilter("nearest", "nearest")
-  sprites.bullet = love.graphics.newImage("sprites/bullet.png")
-  sprites.player = love.graphics.newImage("sprites/player.png")
-  sprites.player:setFilter("nearest", "nearest")
-  sprites.zombie = love.graphics.newImage("sprites/zombie.png")
-  sprites.zombie:setFilter("nearest", "nearest")
-  sprites.pointer = love.graphics.newImage("sprites/pointer.png")
-  sprites.pointer:setFilter("nearest", "nearest")
+  texture.load()
   --zombie 
   zombies = {}
   --proiettile
@@ -168,18 +156,17 @@ end
   
 function love.draw()
   cam:attach()
-       love.graphics.draw(sprites.background,0,0,nil)
-    love.graphics.draw(sprites.blood,0,0,nil)
-    love.graphics.draw(sprites.player, player.x, player.y, rotazioneplayer(), nil, nil, sprites.player:getWidth()/2, sprites.player:getHeight()/2)
+    texture.draw(sprites.background,0,0,nil)
+    texture.draw(sprites.player, player.x, player.y, rotazioneplayer(), nil, nil, sprites.player:getWidth()/2, sprites.player:getHeight()/2)
     love.graphics.setColor(1,1,1,1)
     for i,z in ipairs(zombies) do
-      love.graphics.draw(sprites.zombie, z.x, z.y, zombierot(z), nil, nil, sprites.zombie:getWidth()/2, sprites.zombie:getHeight()/2)
+      texture.draw(sprites.zombie, z.x, z.y, zombierot(z), nil, nil, sprites.zombie:getWidth()/2, sprites.zombie:getHeight()/2)
     end
     for i,b in ipairs(bullets) do
-      love.graphics.draw(sprites.bullet, b.x, b.y, rotazioneplayer(), nil, nil, sprites.bullet:getWidth()/2,-14)
+      texture.draw(sprites.bullet, b.x, b.y, rotazioneplayer(), nil, nil, sprites.bullet:getWidth()/2,-14)
     end
     love.graphics.setColor(1,1,1, 0.5)
-    love.graphics.draw(sprites.trees,0,0,nil)
+    texture.draw(sprites.trees,0,0,nil)
     love.graphics.setColor(1,1,1, 1)
     if gamestate == 1 then
       love.graphics.setFont(start)
