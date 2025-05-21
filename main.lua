@@ -149,6 +149,11 @@ function love.gamepadpressed(joystick, button)
       
     end
     if button == "rightshoulder" and gamestate == 2 then
+      bullets.randomico = 1
+      bulletspawn()
+    end
+    if button == "leftshoulder" and gamestate == 2 then
+      bullets.randomico = 2
       bulletspawn()
     end
 end
@@ -163,7 +168,12 @@ function love.draw()
       texture.draw(sprites.zombie, z.x, z.y, zombierot(z), nil, nil, sprites.zombie:getWidth()/2, sprites.zombie:getHeight()/2)
     end
     for i,b in ipairs(bullets) do
+      if bullets.randomico == 1 then
       texture.draw(sprites.bullet, b.x, b.y, rotazioneplayer(), nil, nil, sprites.bullet:getWidth()/2,-14)
+      end
+      if bullets.randomico == 2 then
+      texture.draw(sprites.bullet, b.x, b.y, rotazioneplayer(), nil, nil, sprites.bullet:getWidth()/2,14)
+      end
     end
     love.graphics.setColor(1,1,1, 0.5)
     texture.draw(sprites.trees,0,0,nil)
@@ -219,6 +229,7 @@ end
 
 function bulletspawn()
   local bullet = {}
+  bullet.randomico = 0
   bullet.x = player.x
   bullet.y = player.y
   bullet.speed = 1000
