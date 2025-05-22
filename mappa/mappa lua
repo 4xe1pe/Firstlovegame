@@ -1,0 +1,357 @@
+return{
+  version = "1.2",
+  luaversion = "5.1",
+  tiledversion = "1.2.3",
+  orientation = "orthogonal",
+  renderorder = "right-down",
+  width = 16,
+  height = 16,
+  tilewidth = 16,
+  tileheight = 16,
+  nextlayerid = 5,
+  nextobjectid = 1,
+  properties = {
+    ["sw4"] = "239",
+    ["sw6"] = "257",
+    ["sw3"] = "290",
+    ["sw2"] = "299",
+    ["sw1"] = "308",
+    ["sw5"] = "266"
+  },
+  tilesets = {
+    {
+      name = "alberipiuscuri",
+      firstgid = 1,
+      tilewidth = 16,
+      tileheight = 16,
+      spacing = 0,
+      margin = 0,
+      columns = 9,
+      tilecount = 54,
+      image = "../alberipiuscuri.png",
+      imagewidth = 144,
+      imageheight = 96,
+      tileoffset = {
+        x = 0,
+        y = 0
+      },
+      grid = {
+        orientation = "orthogonal",
+        width = 16, 
+        height = 16
+      },
+      properties = {},
+      terrains = {},
+      tiles = {}
+    },
+    {
+      name = "sangue",
+      firstgid = 55,
+      tilewidth = 16,
+      tileheight = 16,
+      spacing = 0,
+      margin = 0,
+      columns = 9,
+      tilecount = 54,
+      image = "../sangue.png",
+      imagewidth = 144,
+      imageheight = 96,
+      tileoffset = {
+        x = 0,
+        y = 0
+      },
+      grid = {
+        orientation = "orthogonal",
+        width = 16, 
+        height = 16
+      },
+      properties = {},
+      terrains = {},
+      tiles = {}
+    },
+    {
+      name = "abcd",
+      firstgid = 109,
+      tilewidth = 16,
+      tileheight = 16,
+      spacing = 0,
+      margin = 0,
+      columns = 9,
+      tilecount = 54,
+      image = "../abcd.png",
+      imagewidth = 144,
+      imageheight = 96,
+      tileoffset = {
+        x = 0,
+        y = 0
+      },
+      grid = {
+        orientation = "orthogonal",
+        width = 16, 
+        height = 16
+      },
+      properties = {},
+      terrains = {},
+      tiles = {}
+    },
+    {
+      name = "Senza titolo 22.2025.05.21-19.01",
+      firstgid = 163,
+      tilewidth = 16,
+      tileheight = 16,
+      spacing = 0,
+      margin = 0,
+      columns = 12,
+      tilecount = 72,
+      image = "../Senza titolo 22.2025.05.21-19.01.png",
+      imagewidth = 192,
+      imageheight = 96,
+      tileoffset = {
+        x = 0,
+        y = 0
+      },
+      grid = {
+        orientation = "orthogonal",
+        width = 16, 
+        height = 16
+      },
+      properties = {},
+      terrains = {},
+      tiles = {}
+    },
+    {
+      name = "sangue1",
+      firstgid = 235,
+      tilewidth = 16,
+      tileheight = 16,
+      spacing = 0,
+      margin = 0,
+      columns = 9,
+      tilecount = 54,
+      image = "../sangue1.png",
+      imagewidth = 144,
+      imageheight = 96,
+      tileoffset = {
+        x = 0,
+        y = 0
+      },
+      grid = {
+        orientation = "orthogonal",
+        width = 16, 
+        height = 16
+      },
+      properties = {},
+      terrains = {},
+      tiles = {}
+    },
+    {
+      name = "sangue2",
+      firstgid = 289,
+      tilewidth = 16,
+      tileheight = 16,
+      spacing = 0,
+      margin = 0,
+      columns = 9,
+      tilecount = 54,
+      image = "../sangue2.png",
+      imagewidth = 144,
+      imageheight = 96,
+      tileoffset = {
+        x = 0,
+        y = 0
+      },
+      grid = {
+        orientation = "orthogonal",
+        width = 16, 
+        height = 16
+      },
+      properties = {},
+      terrains = {},
+      tiles = {}
+    },
+    {
+      name = "erba",
+      firstgid = 343,
+      tilewidth = 16,
+      tileheight = 16,
+      spacing = 0,
+      margin = 0,
+      columns = 9,
+      tilecount = 54,
+      image = "../erba.png",
+      imagewidth = 144,
+      imageheight = 96,
+      tileoffset = {
+        x = 0,
+        y = 0
+      },
+      grid = {
+        orientation = "orthogonal",
+        width = 16, 
+        height = 16
+      },
+      properties = {},
+      terrains = {},
+      tiles = {}
+    },
+    {
+      name = "Senza titolo 22.2025.05.21-19.01_20250521122551",
+      firstgid = 397,
+      tilewidth = 16,
+      tileheight = 16,
+      spacing = 0,
+      margin = 0,
+      columns = 6,
+      tilecount = 72,
+      image = "../Senza titolo 22.2025.05.21-19.01_20250521122551.png",
+      imagewidth = 96,
+      imageheight = 192,
+      tileoffset = {
+        x = 0,
+        y = 0
+      },
+      grid = {
+        orientation = "orthogonal",
+        width = 16, 
+        height = 16
+      },
+      properties = {},
+      terrains = {},
+      tiles = {}
+    }
+  },
+  layers = {
+    {
+      type = "tilelayer",
+      id = 1,
+      name = "Tile 1",
+      x = 0,
+      y = 0,
+      width = 16,
+      height = 16,
+      visible = true,
+      opacity = 1,
+      offsetx = 0,
+      offsety = 0,
+      properties = {},
+      encoding = "lua",
+      data = {
+                1, 2, 2, 2, 2, 2, 2, 122, 16, 18, 122, 2, 2, 2, 2, 3,         
+                10, 11, 11, 11, 11, 11, 11, 122, 16, 18, 122, 11, 11, 11, 11, 12,         
+                10, 11, 11, 11, 11, 11, 11, 122, 16, 18, 122, 11, 11, 11, 11, 12,         
+                10, 11, 11, 11, 11, 11, 11, 122, 16, 18, 122, 11, 11, 11, 11, 12,         
+                122, 122, 122, 122, 122, 122, 122, 7, 135, 17, 9, 122, 122, 122, 122, 122,         
+                8, 8, 8, 8, 8, 8, 8, 125, 17, 17, 117, 8, 8, 8, 8, 8,         
+                26, 26, 26, 26, 26, 26, 26, 17, 135, 17, 135, 26, 26, 26, 26, 26,         
+                122, 122, 122, 122, 122, 122, 122, 25, 17, 17, 27, 122, 122, 122, 122, 122,         
+                10, 11, 11, 11, 11, 11, 11, 122, 16, 18, 122, 11, 11, 11, 11, 12,         
+                10, 11, 11, 11, 11, 11, 11, 122, 16, 18, 122, 11, 11, 11, 11, 12,         
+                10, 11, 11, 11, 11, 11, 11, 122, 16, 18, 122, 11, 11, 11, 11, 12,         
+                10, 11, 11, 11, 11, 11, 11, 122, 16, 18, 122, 11, 11, 11, 11, 12,         
+                10, 11, 11, 11, 11, 11, 11, 122, 16, 18, 122, 11, 11, 11, 11, 12,         
+                10, 11, 11, 11, 11, 11, 11, 122, 16, 18, 122, 11, 11, 11, 11, 12,         
+                10, 11, 11, 11, 11, 11, 11, 122, 16, 18, 122, 11, 11, 11, 11, 12,         
+                19, 20, 20, 20, 20, 20, 20, 122, 16, 18, 122, 20, 20, 20, 20, 21        
+      }
+    },
+    {
+      type = "tilelayer",
+      id = 2,
+      name = "sangue",
+      x = 0,
+      y = 0,
+      width = 16,
+      height = 16,
+      visible = true,
+      opacity = 1,
+      offsetx = 0,
+      offsety = 0,
+      properties = {},
+      encoding = "lua",
+      data = {
+                0, 0, 345, 0, 343, 0, 346, 0, 0, 0, 0, 355, 0, 0, 354, 84,         
+                344, 0, 78, 0, 343, 0, 0, 0, 0, 0, 0, 343, 0, 346, 84, 84,         
+                266, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 355, 84, 84, 354,         
+                354, 0, 345, 346, 0, 0, 0, 0, 0, 0, 0, 63, 84, 84, 345, 0,         
+                0, 0, 0, 317, 0, 0, 258, 0, 0, 0, 459, 0, 0, 0, 0, 0,         
+                0, 0, 0, 0, 345, 0, 0, 0, 0, 0, 465, 460, 0, 0, 0, 0,         
+                0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 466, 0, 0, 0, 0,         
+                0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,         
+                344, 0, 355, 346, 355, 0, 343, 0, 0, 0, 354, 0, 344, 0, 0, 345,         
+                0, 0, 0, 0, 0, 0, 345, 0, 0, 0, 0, 0, 0, 97, 0, 0,         
+                343, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 343, 290, 0, 0, 317,         
+                0, 84, 0, 0, 303, 0, 346, 0, 0, 0, 0, 0, 0, 0, 239, 0,         
+                0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 346, 0, 97, 0, 0,         
+                0, 0, 0, 0, 82, 309, 355, 0, 0, 0, 0, 354, 0, 0, 0, 0,         
+                0, 63, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,         
+                0, 0, 0, 0, 0, 0, 344, 344, 0, 0, 0, 344, 0, 343, 0, 346        
+      }
+    },
+    {
+      type = "tilelayer",
+      id = 3,
+      name = "altr",
+      x = 0,
+      y = 0,
+      width = 16,
+      height = 16,
+      visible = true,
+      opacity = 1,
+      offsetx = 0,
+      offsety = 0,
+      properties = {},
+      encoding = "lua",
+      data = {
+                0, 36, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,         
+                0, 0, 0, 31, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,         
+                0, 0, 0, 40, 0, 32, 45, 0, 0, 0, 0, 0, 0, 0, 0, 0,         
+                0, 54, 0, 0, 0, 41, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,         
+                0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,         
+                0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,         
+                0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,         
+                0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,         
+                0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,         
+                169, 169, 169, 169, 171, 172, 0, 0, 0, 0, 0, 33, 34, 34, 34, 34,         
+                201, 201, 201, 201, 195, 184, 0, 0, 0, 0, 0, 42, 43, 43, 43, 43,         
+                193, 165, 165, 165, 195, 184, 0, 0, 0, 0, 0, 42, 43, 43, 43, 43,         
+                194, 205, 205, 205, 195, 184, 0, 0, 0, 0, 0, 42, 43, 43, 43, 43,         
+                194, 194, 194, 194, 195, 184, 0, 0, 0, 0, 0, 42, 43, 43, 43, 43,         
+                194, 193, 193, 205, 195, 184, 0, 0, 0, 0, 0, 51, 52, 52, 52, 52,         
+                229, 229, 229, 229, 231, 232, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0        
+      }
+    },
+    {
+      type = "tilelayer",
+      id = 4,
+      name = "Layer 4",
+      x = 0,
+      y = 0,
+      width = 16,
+      height = 16,
+      visible = true,
+      opacity = 1,
+      offsetx = 0,
+      offsety = 0,
+      properties = {},
+      encoding = "lua",
+      data = {
+                0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,         
+                0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,         
+                0, 0, 0, 290, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,         
+                0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,         
+                0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,         
+                0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,         
+                0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,         
+                0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,         
+                0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,         
+                0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 239, 0, 0,         
+                0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 308, 0, 0, 266,         
+                0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 299, 0, 257, 0,         
+                0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 97, 0, 0,         
+                0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,         
+                0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 257,         
+                0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0        
+      }
+    }
+  }
+}
