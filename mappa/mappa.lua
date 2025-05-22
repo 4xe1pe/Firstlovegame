@@ -28,7 +28,7 @@ return{
       margin = 0,
       columns = 9,
       tilecount = 54,
-      image = "../alberipiuscuri.png",
+      image = "alberipiuscuri.png",
       imagewidth = 144,
       imageheight = 96,
       tileoffset = {
@@ -53,7 +53,7 @@ return{
       margin = 0,
       columns = 9,
       tilecount = 54,
-      image = "../sangue.png",
+      image = "sangue.png",
       imagewidth = 144,
       imageheight = 96,
       tileoffset = {
@@ -78,7 +78,7 @@ return{
       margin = 0,
       columns = 9,
       tilecount = 54,
-      image = "../abcd.png",
+      image = "abcd.png",
       imagewidth = 144,
       imageheight = 96,
       tileoffset = {
@@ -103,7 +103,7 @@ return{
       margin = 0,
       columns = 12,
       tilecount = 72,
-      image = "../Senza titolo 22.2025.05.21-19.01.png",
+      image = "Senza titolo 22.2025.05.21-19.01.png",
       imagewidth = 192,
       imageheight = 96,
       tileoffset = {
@@ -128,7 +128,7 @@ return{
       margin = 0,
       columns = 9,
       tilecount = 54,
-      image = "../sangue1.png",
+      image = "sangue1.png",
       imagewidth = 144,
       imageheight = 96,
       tileoffset = {
@@ -153,7 +153,7 @@ return{
       margin = 0,
       columns = 9,
       tilecount = 54,
-      image = "../sangue2.png",
+      image = "sangue2.png",
       imagewidth = 144,
       imageheight = 96,
       tileoffset = {
@@ -178,7 +178,7 @@ return{
       margin = 0,
       columns = 9,
       tilecount = 54,
-      image = "../erba.png",
+      image = "erba.png",
       imagewidth = 144,
       imageheight = 96,
       tileoffset = {
@@ -203,7 +203,7 @@ return{
       margin = 0,
       columns = 6,
       tilecount = 72,
-      image = "../Senza titolo 22.2025.05.21-19.01_20250521122551.png",
+      image = "Senza titolo 22.2025.05.21-19.01_20250521122551.png",
       imagewidth = 96,
       imageheight = 192,
       tileoffset = {

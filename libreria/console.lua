@@ -32,6 +32,7 @@ love.graphics.print(player.position,cam.x -350, cam.y -32)
 love.graphics.print(grandezzaschermo,cam.x -350, cam.y -52)
 love.graphics.print(numerozoombie,cam.x -350, cam.y -72)
 love.graphics.print(numerobullet,cam.x -350, cam.y -92)
+love.graphics.print(player.health,cam.x-350,cam.y-112)
 world:draw()
 end
 end
@@ -41,6 +42,7 @@ function M.drew()
   love.graphics.print("LS to move", 10 , 40)
   love.graphics.print("RB/R1 or LB/L1 to shoot",10,60)
   love.graphics.print("or both",10, 80)
+  love.graphics.print(player.health,10, 100)
   end
 end
 

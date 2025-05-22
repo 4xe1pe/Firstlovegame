@@ -7,7 +7,9 @@ function love.load()
   love.window.setMode(1600, 720, { resizable = false, vsync = true, fullscreen = true })
   --anim8
   anim8 = require("libreria/anim8")
-  
+  --map
+  sti = require("libreria/sti")
+  gamemap = sti('mappa/mappa.lua')
   --camera
   camera = require"libreria/camera"
   cam = camera.new()
@@ -25,9 +27,7 @@ function love.load()
   pointer.speed = 700
 
   player = {}
---  player.collider = World:newRectangleCollider(400,250,25,50)
   player.spriteSheet = love.graphics.newImage("sprites/playerwalk.png")
---  player.collider:setFixedRotation(true)
   player.x = 360
   player.y = 152
   player.speed = 170
@@ -35,6 +35,7 @@ function love.load()
   movement.load(true, player,pointer)
   player.animation = anim8.newAnimation(player.grid('1-3', 1), 0.2)
   player.anim = player.animation
+  player.health = 100
 
   --roba per lo schermo
   start = love.graphics.newFont(30)
@@ -100,12 +101,19 @@ end
     if distancebtwn(z.x,z.y,player.x,player.y) < 15 then
         for i,z in ipairs(zombies) do
           zombies[i] = nil
+          player.health = player.health - 5
+        if distancebtwn(z.x,z.y,player.x,player.y) < 15 and player.health <= 10 then
           gamestate = 1
+          zombies[i] = nil
           player.x = love.graphics.getWidth()/2
           player.y = love.graphics.getHeight()/2
+          
         end
       end
     end
+  end
+  
+
 
     --bullet movement
   for i,b in ipairs(bullets) do
@@ -158,6 +166,7 @@ console.update(dt)
 end
 function love.gamepadpressed(joystick, button)
     if button == "a" and gamestate == 1 then
+      player.health = 100
       gamestate = 2
       maxtime = 2
       timer = maxtime
@@ -180,7 +189,13 @@ end
   
 function love.draw()
   cam:attach()
-    texture.draw(sprites.background,0,0,nil)
+  local scale = 4
+  love.graphics.push()
+  love.graphics.scale(scale)
+    gamemap:drawLayer(gamemap.layers["Tile 1"])
+    gamemap:drawLayer(gamemap.layers["sangue"])
+  love.graphics.pop()
+  -- texture.draw(sprites.background,0,0,nil)
     player.animation:draw(player.spriteSheet, player.x, player.y, rotazioneplayer(), nil, nil, sprites.player:getWidth()/2, sprites.player:getHeight()/2)
     love.graphics.setColor(1,1,1,1)
     for i,z in ipairs(zombies) do
@@ -194,9 +209,13 @@ function love.draw()
       texture.draw(sprites.bullet, b.x, b.y, rotazioneplayer(), nil, nil, sprites.bullet:getWidth()/2,14)
       end
     end
-    love.graphics.setColor(1,1,1, 0.5)
-    texture.draw(sprites.trees,0,0,nil)
-    love.graphics.setColor(1,1,1, 1)
+    love.graphics.setColor(1,1,1,0.5)
+    love.graphics.push()
+  love.graphics.scale(scale)
+    gamemap:drawLayer(gamemap.layers["altr"])
+    gamemap:drawLayer(gamemap.layers["Layer 4"])
+  love.graphics.pop()
+  love.graphics.setColor(1,1,1,1)
     if gamestate == 1 then
       love.graphics.setFont(start)
       love.graphics.printf("schiaccia X per cominciare",cam.x - 360, cam.y -92, love.graphics.getWidth(), "center")
