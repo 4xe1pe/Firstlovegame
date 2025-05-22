@@ -1,6 +1,8 @@
 local console = require("libreria/console")
 local movement = require("libreria/movement")
 local texture = require("libreria/texture")
+local rain = require("Rain")
+local healthbar = require("healthbar")
 local joysticks = {}
 function love.load()
   math.randomseed(os.time())
@@ -10,6 +12,7 @@ function love.load()
   --map
   sti = require("libreria/sti")
   gamemap = sti('mappa/mappa.lua')
+  rain.load()
   --camera
   camera = require"libreria/camera"
   cam = camera.new()
@@ -17,7 +20,6 @@ function love.load()
   texture.load()
   --zombie 
   zombies = {}
-   
   --proiettile
   bullets = {}
   --roba puntatore e player
@@ -36,6 +38,7 @@ function love.load()
   player.animation = anim8.newAnimation(player.grid('1-3', 1), 0.2)
   player.anim = player.animation
   player.health = 100
+  healthbar.load()
 
   --roba per lo schermo
   start = love.graphics.newFont(30)
@@ -46,7 +49,7 @@ function love.load()
   joystick = joysticks[1]
   
   -- settings
-  console.load(true)
+  console.load(false)
   gamestate = 1
   maxtime = 2
   timer = maxtime
@@ -55,6 +58,8 @@ function love.load()
 end
 
 function love.update(dt)
+  healthbar.update(dt)
+  rain.update(dt)
   --world:update(dt)
   --cam movement
   cam:lookAt(player.x,player.y)
@@ -94,6 +99,7 @@ end
   if gamestate == 2  then
   movement.update(dt)
   end 
+ 
   --zombie movement
   for i,z in ipairs(zombies) do
     z.x = z.x + math.cos( zombierot(z) ) * z.speed * dt
@@ -101,17 +107,16 @@ end
     if distancebtwn(z.x,z.y,player.x,player.y) < 15 then
         for i,z in ipairs(zombies) do
           zombies[i] = nil
-          player.health = player.health - 5
-        if distancebtwn(z.x,z.y,player.x,player.y) < 15 and player.health <= 10 then
+          healthbar.damage(5)
+        if distancebtwn(z.x,z.y,player.x,player.y) < 15 and healthbar.getHealth() <= 10 then
           gamestate = 1
           zombies[i] = nil
           player.x = love.graphics.getWidth()/2
           player.y = love.graphics.getHeight()/2
-          
+          end
         end
       end
     end
-  end
   
 
 
@@ -188,6 +193,7 @@ end
 
   
 function love.draw()
+  
   cam:attach()
   local scale = 4
   love.graphics.push()
@@ -211,19 +217,22 @@ function love.draw()
     end
     love.graphics.setColor(1,1,1,0.5)
     love.graphics.push()
-  love.graphics.scale(scale)
+    love.graphics.scale(scale)
     gamemap:drawLayer(gamemap.layers["altr"])
     gamemap:drawLayer(gamemap.layers["Layer 4"])
   love.graphics.pop()
   love.graphics.setColor(1,1,1,1)
+
     if gamestate == 1 then
       love.graphics.setFont(start)
       love.graphics.printf("schiaccia X per cominciare",cam.x - 360, cam.y -92, love.graphics.getWidth(), "center")
       end
     love.graphics.setFont(font)
-    love.graphics.printf("punti: " ..score, cam.x - 360, cam.y-122, love.graphics.getWidth(), "center")
+    love.graphics.print("punti: " ..score, cam.x+300, cam.y-love.graphics.getHeight()/2)
    console.draw()
    cam:detach()
+   healthbar.draw()
+   rain.draw()
    console.drew()
   if gamestate == 2 then
     love.graphics.draw(sprites.pointer,pointer.x - 20, pointer.y)
