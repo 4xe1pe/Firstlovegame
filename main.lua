@@ -1,8 +1,9 @@
 local console = require("libreria/console")
 local movement = require("libreria/movement")
 local texture = require("libreria/texture")
-local rain = require("Rain")
-local healthbar = require("healthbar")
+local rain = require("libreria/Rain")
+local healthbar = require("libreria/healthbar")
+local blood = require("libreria/sangue")
 local joysticks = {}
 function love.load()
   math.randomseed(os.time())
@@ -19,6 +20,7 @@ function love.load()
   --roba per immagini
   texture.load()
   --zombie 
+  blood.load()
   zombies = {}
   --proiettile
   bullets = {}
@@ -99,7 +101,7 @@ end
   if gamestate == 2  then
   movement.update(dt)
   end 
- 
+ blood.update(dt)
   --zombie movement
   for i,z in ipairs(zombies) do
     z.x = z.x + math.cos( zombierot(z) ) * z.speed * dt
@@ -107,10 +109,12 @@ end
     if distancebtwn(z.x,z.y,player.x,player.y) < 15 then
         for i,z in ipairs(zombies) do
           zombies[i] = nil
+          blood.bloodspawn(z.x,z.y)
           healthbar.damage(5)
         if distancebtwn(z.x,z.y,player.x,player.y) < 15 and healthbar.getHealth() <= 10 then
           gamestate = 1
           zombies[i] = nil
+          blood.bloodspawn(z.x,z.y)
           player.x = love.graphics.getWidth()/2
           player.y = love.graphics.getHeight()/2
           end
@@ -137,6 +141,7 @@ end
       if distancebtwn(z.x,z.y,b.x,b.y) < 15 then
         z.death = true
         b.death = true
+        blood.bloodspawn(z.x,z.y)
         score = score + 1
       end
     end
@@ -229,6 +234,10 @@ function love.draw()
       end
     love.graphics.setFont(font)
     love.graphics.print("punti: " ..score, cam.x+300, cam.y-love.graphics.getHeight()/2)
+    for i,s in ipairs(bloods) do
+      blood.draw(sprites.blood,s.x, s.y)
+    end
+   
    console.draw()
    cam:detach()
    healthbar.draw()
@@ -259,7 +268,6 @@ function zombiespawn()
   zombie.y = 0
   zombie.speed = 140
   zombie.death = false
-  table.insert(zombies, zombie)
   local side = math.random(1,4)
   if side == 1 then
     zombie.x = math.random(0, -40)
@@ -274,6 +282,7 @@ function zombiespawn()
     zombie.x = math.random(0, bw)
     zombie.y = math.random(bh,bh + 40)
   end
+  table.insert(zombies, zombie)
 end
 
 

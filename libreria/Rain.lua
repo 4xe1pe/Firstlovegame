@@ -4,15 +4,13 @@ local rain
 local texture = require("libreria/texture")
 function m.load()
   texture.load()
-    -- Usa la tua texture esterna: linea bianca per la pioggia
     local rainImg = sprites.bullet
 
-    -- Sistema particelle pioggia
     rain = love.graphics.newParticleSystem(rainImg, 500)
     rain:setParticleLifetime(1, 2)
     rain:setEmissionRate(200)
     rain:setSizeVariation(0.5)
-    rain:setLinearAcceleration(-200, 400, -200, 400) -- pioggia diagonale da dx a sx
+    rain:setLinearAcceleration(-200, 400, -200, 400)
     rain:setAreaSpread("uniform", love.graphics.getWidth(), 0)
     rain:setDirection(math.rad(135))
     rain:setSpeed(400, 600)
