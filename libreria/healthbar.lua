@@ -1,5 +1,5 @@
 local M = {}
-local global = {}
+global = {}
 global.player = {}
 
 function M.load()
@@ -9,7 +9,6 @@ end
 
 function M.update(dt)
     local new_health = math.min(global.player.health, global.player.max_health)
-    new_health = (new_health > 0) and new_health or global.player.max_health
     global.player.health = new_health
 end
 

@@ -4,7 +4,7 @@ local texture = require("libreria/texture")
 local rain = require("libreria/Rain")
 local healthbar = require("libreria/healthbar")
 local blood = require("libreria/sangue")
-local joysticks = {}
+local animation = require("libreria/animations")
 function love.load()
   math.randomseed(os.time())
   love.window.setMode(1600, 720, { resizable = false, vsync = true, fullscreen = true })
@@ -24,23 +24,24 @@ function love.load()
   zombies = {}
   --proiettile
   bullets = {}
+  bullets.revolver = true
+  bullets.shotgun = false
   --roba puntatore e player
   pointer = {}
   pointer.x = 200
   pointer.y = 200
   pointer.speed = 700
-
+  
+  
   player = {}
   player.spriteSheet = love.graphics.newImage("sprites/playerwalk.png")
   player.x = 360
   player.y = 152
   player.speed = 170
-  player.grid = anim8.newGrid(35,45,player.spriteSheet:getWidth(), player.spriteSheet:getHeight())
-  movement.load(true, player,pointer)
-  player.animation = anim8.newAnimation(player.grid('1-3', 1), 0.2)
-  player.anim = player.animation
-  player.health = 100
   healthbar.load()
+  global.player.health = 100
+  animation.load(player,zombies)
+  movement.load(true,player,pointer)
 
   --roba per lo schermo
   start = love.graphics.newFont(30)
@@ -84,20 +85,10 @@ function love.update(dt)
   
   
   --player movement
-  player.animation:update(dt)
-  for _, z in ipairs(zombies) do
-  if z.animation then
-    z.animation:update(dt)
-  end
-end
-  local LsX = joystick:getGamepadAxis("leftx")
-  local Lsy = joystick:getGamepadAxis("lefty")
+  animation.update(dt)
   
-  if LsX <= -0.2 or LsX >= 0.2 or Lsy <= -0.2 or Lsy >= 0.2 then
-        player.anim = player.animation
-    elseif LsX == 0 or Lsy == 0 then
-        player.anim:gotoFrame(2)
-    end
+  
+  
   if gamestate == 2  then
   movement.update(dt)
   end 
@@ -107,11 +98,10 @@ end
     z.x = z.x + math.cos( zombierot(z) ) * z.speed * dt
     z.y = z.y + math.sin( zombierot(z) ) * z.speed * dt
     if distancebtwn(z.x,z.y,player.x,player.y) < 15 then
-        for i,z in ipairs(zombies) do
-          zombies[i] = nil
           blood.bloodspawn(z.x,z.y)
           healthbar.damage(5)
         if distancebtwn(z.x,z.y,player.x,player.y) < 15 and healthbar.getHealth() <= 10 then
+          for i,z in ipairs(zombies) do
           gamestate = 1
           zombies[i] = nil
           blood.bloodspawn(z.x,z.y)
@@ -174,13 +164,14 @@ console.update(dt)
   numerozoombie = ("numero zombie: " .. tostring(#zombies))
 
 end
+
 function love.gamepadpressed(joystick, button)
     if button == "a" and gamestate == 1 then
-      player.health = 100
       gamestate = 2
       maxtime = 2
       timer = maxtime
       score = 0
+      global.player.health = 100
       player.x = love.graphics.getWidth()/2
       player.y = love.graphics.getHeight()/2
       
@@ -195,7 +186,6 @@ function love.gamepadpressed(joystick, button)
       bulletspawn()
     end
 end
-
   
 function love.draw()
   
@@ -206,12 +196,8 @@ function love.draw()
     gamemap:drawLayer(gamemap.layers["Tile 1"])
     gamemap:drawLayer(gamemap.layers["sangue"])
   love.graphics.pop()
-  -- texture.draw(sprites.background,0,0,nil)
-    player.animation:draw(player.spriteSheet, player.x, player.y, rotazioneplayer(), nil, nil, sprites.player:getWidth()/2, sprites.player:getHeight()/2)
-    love.graphics.setColor(1,1,1,1)
-    for i,z in ipairs(zombies) do
-      z.animation:draw(z.spriteSheet, z.x, z.y, zombierot(z), nil, nil, sprites.zombie:getWidth()/2, sprites.zombie:getHeight()/2)
-    end
+    animation.playerdraw(player.x, player.y, rotazioneplayer(), nil, nil, sprites.player:getWidth()/2, sprites.player:getHeight()/2)
+    animation.zombdraw()
     for i,b in ipairs(bullets) do
       if bullets.randomico == 1 then
       texture.draw(sprites.bullet, b.x, b.y, rotazioneplayer(), nil, nil, sprites.bullet:getWidth()/2,-14)
@@ -248,7 +234,6 @@ function love.draw()
    end
 end
 
-
 function rotazioneplayer ()
   local mx, my = cam:worldCoords(pointer.x, pointer.y)
   return math.atan2(my - player.y, mx - player.x)
@@ -284,7 +269,6 @@ function zombiespawn()
   end
   table.insert(zombies, zombie)
 end
-
 
 function bulletspawn()
   local bullet = {}
