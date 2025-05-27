@@ -59,7 +59,7 @@ joysticks = love.joystick.getJoysticks()
 joystick = joysticks[1]
 
 -- settings
-console.load(false)
+console.load(true)
 gamestate = 1
 maxtime = 2
 timer = maxtime
@@ -101,6 +101,7 @@ blood.update(dt)
 for i,z in ipairs(zombies) do
 z.x = z.x + math.cos(zombierot(z)) * z.speed * dt
 z.y = z.y + math.sin(zombierot(z)) * z.speed * dt
+  z.collider:setLinearVelocity(z.x,z.y)
 if distancebtwn(z.x,z.y,player.x,player.y) < 15 then
 blood.bloodspawn(z.x,z.y)
 healthbar.damage(5)
@@ -112,7 +113,6 @@ blood.bloodspawn(z.x,z.y)
 player.collider:setLinearVelocity(0,0)
 player.collider.x = love.graphics.getWidth()-50
 player.collider.y = love.graphics.getHeight()
-
 end
 end
 end
@@ -137,6 +137,7 @@ for j,b in ipairs(bullets) do
 if distancebtwn(z.x,z.y,b.x,b.y) < 15 then
 z.death = true
 b.death = true
+z.collider:destroy()
 blood.bloodspawn(z.x,z.y)
 score = score + 1
 end
@@ -248,32 +249,6 @@ function zombierot(enemy)
 return math.atan2(player.y - enemy.y, player.x - enemy.x)
 end
 
-function zombiespawn()
-local zombie = {}
-zombie.spriteSheet = love.graphics.newImage("sprites/zombwalk.png")
-zombie.grid = anim8.newGrid(35,45,zombie.spriteSheet:getWidth(), zombie.spriteSheet:getHeight())
-zombie.animation = anim8.newAnimation(zombie.grid('1-3', 1), 0.2)
-zombie.anim = zombie.animation
-zombie.x = 0
-zombie.y = 0
-zombie.speed = 140
-zombie.death = false
-local side = math.random(1,4)
-if side == 1 then
-zombie.x = math.random(0, -40)
-zombie.y = math.random(0,bh)
-elseif side == 2 then
-zombie.x = math.random(0,bw)
-zombie.y = math.random(0, -40)
-elseif side == 3 then
-zombie.x = math.random(bw,bw + 40)
-zombie.y = math.random(0, bh)
-elseif side == 4 then
-zombie.x = math.random(0, bw)
-zombie.y = math.random(bh,bh + 40)
-end
-table.insert(zombies, zombie)
-end
 
 function bulletspawn()
 local bullet = {}

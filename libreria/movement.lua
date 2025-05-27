@@ -6,7 +6,7 @@ local zombie = {}
 local pointeri = false
 local collision = require("libreria/collisioni")
 local healthbar = require("libreria/healthbar")
-function M.load(attiva,plr,pnt,wrld,zmb)
+function M.load(attiva,plr,pnt,wrld)
   zombie = zmb
   move = attiva or false
   if move == true then
