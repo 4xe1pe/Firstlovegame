@@ -7,8 +7,6 @@ local grandezzaschermo
 local wf = require("libreria/windfield")
 function M.load(attiva)
 -- codice per load
-
-world = wf.newWorld(0,0)
 console = attiva or false
 w = love.graphics.getWidth()
 h = love.graphics.getHeight()
@@ -21,7 +19,6 @@ function M.update(dt)
 if console == true then
 player.position = "X: " ..math.ceil(player.x).." Y: " ..math.ceil(player.y)
 grandezzaschermo = "largo " .. w .. " alto " .. h
-world:update(dt)
 end
 end
 
@@ -31,13 +28,11 @@ if console == true then
   local scale = 0.8
   love.graphics.push()
   love.graphics.scale(scale)
-love.graphics.print(player.position,cam.x -350, cam.y -32)
-love.graphics.print(grandezzaschermo,cam.x -350, cam.y -52)
-love.graphics.print(numerozoombie,cam.x -350, cam.y -72)
-love.graphics.print(numerobullet,cam.x -350, cam.y -92)
-love.graphics.print(player.health,cam.x-350,cam.y-112)
-love.graphics.pop()
-world:draw()
+  love.graphics.print(player.position,10,80)
+  love.graphics.print(grandezzaschermo,10,100)
+  love.graphics.print(numerozoombie,10, 120)
+  love.graphics.print(numerobullet,10, 140)
+  love.graphics.pop()
 end
 end
 function M.drew()

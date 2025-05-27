@@ -1,6 +1,5 @@
 local m = {}
 blodtrue = false
-local blood
 local texture = require("libreria/texture")
 function m.load()
   texture.load()
@@ -14,7 +13,7 @@ function m.bloodspawn(bx,by)
   blood.y = by
   blood.sangue = love.graphics.newParticleSystem(sprites.blood, 200)
   blood.sangue:setParticleLifetime(0.1,0.7)
-  blood.sangue:setEmissionRate(30)
+  blood.sangue:setEmissionRate(60)
   blood.sangue:setSizes(2)
   blood.sangue:setSizeVariation(1)
   blood.sangue:setSpeed(100, 300)
@@ -53,6 +52,21 @@ function m.update(dt)
   for i,u in ipairs(bluds) do
   u.sangue:update(dt)
   end
+    for i = #bloods, 1, -1 do
+        local b = bloods[i]
+        b.sangue:update(dt)
+        if b.sangue:getCount() == 0 then
+            table.remove(bloods, i)
+        end
+    end
+
+    for i = #bluds, 1, -1 do
+        local u = bluds[i]
+        u.sangue:update(dt)
+        if u.sangue:getCount() == 0 then
+            table.remove(bluds, i)
+        end
+    end
 end
 
 function m.draw()

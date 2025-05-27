@@ -8,8 +8,8 @@ return{
   height = 16,
   tilewidth = 16,
   tileheight = 16,
-  nextlayerid = 5,
-  nextobjectid = 1,
+  nextlayerid = 6,
+  nextobjectid = 23,
   properties = {
     ["sw4"] = "239",
     ["sw6"] = "257",
@@ -28,7 +28,7 @@ return{
       margin = 0,
       columns = 9,
       tilecount = 54,
-      image = "alberipiuscuri.png",
+      image = "/alberipiuscuri.png",
       imagewidth = 144,
       imageheight = 96,
       tileoffset = {
@@ -53,7 +53,7 @@ return{
       margin = 0,
       columns = 9,
       tilecount = 54,
-      image = "sangue.png",
+      image = "/sangue.png",
       imagewidth = 144,
       imageheight = 96,
       tileoffset = {
@@ -78,7 +78,7 @@ return{
       margin = 0,
       columns = 9,
       tilecount = 54,
-      image = "abcd.png",
+      image = "/abcd.png",
       imagewidth = 144,
       imageheight = 96,
       tileoffset = {
@@ -103,7 +103,7 @@ return{
       margin = 0,
       columns = 12,
       tilecount = 72,
-      image = "Senza titolo 22.2025.05.21-19.01.png",
+      image = "/Senza titolo 22.2025.05.21-19.01.png",
       imagewidth = 192,
       imageheight = 96,
       tileoffset = {
@@ -128,7 +128,7 @@ return{
       margin = 0,
       columns = 9,
       tilecount = 54,
-      image = "sangue1.png",
+      image = "/sangue1.png",
       imagewidth = 144,
       imageheight = 96,
       tileoffset = {
@@ -153,7 +153,7 @@ return{
       margin = 0,
       columns = 9,
       tilecount = 54,
-      image = "sangue2.png",
+      image = "/sangue2.png",
       imagewidth = 144,
       imageheight = 96,
       tileoffset = {
@@ -178,7 +178,7 @@ return{
       margin = 0,
       columns = 9,
       tilecount = 54,
-      image = "erba.png",
+      image = "/erba.png",
       imagewidth = 144,
       imageheight = 96,
       tileoffset = {
@@ -203,9 +203,34 @@ return{
       margin = 0,
       columns = 6,
       tilecount = 72,
-      image = "Senza titolo 22.2025.05.21-19.01_20250521122551.png",
+      image = "/Senza titolo 22.2025.05.21-19.01_20250521122551.png",
       imagewidth = 96,
       imageheight = 192,
+      tileoffset = {
+        x = 0,
+        y = 0
+      },
+      grid = {
+        orientation = "orthogonal",
+        width = 16, 
+        height = 16
+      },
+      properties = {},
+      terrains = {},
+      tiles = {}
+    },
+    {
+      name = "car",
+      firstgid = 469,
+      tilewidth = 22,
+      tileheight = 29,
+      spacing = 0,
+      margin = 0,
+      columns = 1,
+      tilecount = 1,
+      image = "/car.png",
+      imagewidth = 22,
+      imageheight = 29,
       tileoffset = {
         x = 0,
         y = 0
@@ -271,7 +296,7 @@ return{
       data = {
                 0, 0, 345, 0, 343, 0, 346, 0, 0, 0, 0, 355, 0, 0, 354, 84,         
                 344, 0, 78, 0, 343, 0, 0, 0, 0, 0, 0, 343, 0, 346, 84, 84,         
-                266, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 355, 84, 84, 354,         
+                266, 0, 0, 0, 0, 469, 0, 0, 0, 0, 0, 0, 355, 84, 84, 354,         
                 354, 0, 345, 346, 0, 0, 0, 0, 0, 0, 0, 63, 84, 84, 345, 0,         
                 0, 0, 0, 317, 0, 0, 258, 0, 0, 0, 459, 0, 0, 0, 0, 0,         
                 0, 0, 0, 0, 345, 0, 0, 0, 0, 0, 465, 460, 0, 0, 0, 0,         
@@ -351,6 +376,84 @@ return{
                 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,         
                 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 257,         
                 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0        
+      }
+    },
+    {
+      type = "objectgroup",
+      id = 10,
+      name = "walls",
+      visible = true,
+      opacity = 1,
+      offsetx = 0,
+      offsety = 0,
+      draworder = "topdown",
+      properties ={},
+      objects = {
+        {
+          id = 18,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 82.24464,
+          y = 17.364689,
+          width = 18.25525,
+          height = 31.625282,
+          rotation = 0.0,
+          visible = true,
+          properties = {},
+        },
+        {
+          id = 19,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = -0.086490154,
+          y = -6.974533,
+          width = 257.60306,
+          height = 8.495215,
+          rotation = 0.0,
+          visible = true,
+          properties = {},
+        },
+        {
+          id = 20,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 254.28743,
+          y = -1.2999992,
+          width = 13.093166,
+          height = 258.21594,
+          rotation = 0.0,
+          visible = true,
+          properties = {},
+        },
+        {
+          id = 21,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = -8.114921,
+          y = 253.38763,
+          width = 281.37674,
+          height = 14.575043,
+          rotation = 0.0,
+          visible = true,
+          properties = {},
+        },
+        {
+          id = 22,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = -8.574406,
+          y = -3.2556458,
+          width = 9.288945,
+          height = 273.30917,
+          rotation = 0.0,
+          visible = true,
+          properties = {},
+        },
       }
     }
   }

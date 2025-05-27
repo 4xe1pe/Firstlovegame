@@ -2,12 +2,19 @@ local M = {}
 local move = false
 local player = {}
 local pointer = {}
+local zombie = {}
 local pointeri = false
-function M.load(attiva,plr,pnt)
+local collision = require("libreria/collisioni")
+local healthbar = require("libreria/healthbar")
+function M.load(attiva,plr,pnt,wrld,zmb)
+  zombie = zmb
   move = attiva or false
   if move == true then
+  world = wrld
   --player
   player = plr
+  healthbar.gethealth()
+  collision.load(player,world,zombie)
   --joystick
   joysticks = love.joystick.getJoysticks()
   joystick = joysticks[1]
@@ -21,25 +28,17 @@ function M.load(attiva,plr,pnt)
 end
 
 function M.update(dt)
+  collision.update(dt)
+  local vx = 0
+  local vy = 0
   if move == true then
-  player.x = player.x + joystick:getGamepadAxis("leftx") * player.speed * dt
-  player.y = player.y + joystick:getGamepadAxis("lefty") * player.speed * dt
-  end
-
+  vx = vx + joystick:getGamepadAxis("leftx") * player.speed * dt
+  vy = vy + joystick:getGamepadAxis("lefty") * player.speed * dt
+  local x = player.collider:getPosition()
+  local y = player.collider:getPosition()
   local bw = sprites.background:getWidth()
   local bh = sprites.background:getHeight()
-  
-if player.x < bw - bw then
-    player.x = bw - bw
-end
-if player.y < bh - bh then 
-    player.y = bh - bh
-end
-if player.x > bw then
-    player.x = bw
-end
-if player.y > bh then
-    player.y = bh
+  player.collider:setLinearVelocity(vx,vy)
 end
 
 if move == true and pointeri == true then
