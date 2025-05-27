@@ -93,9 +93,6 @@ end
 
 --player movement
 animation.update(dt)
-
-
-
 if gamestate == 2 then
 movement.update(dt)
 end
@@ -180,8 +177,7 @@ gamestate = 2
 maxtime = 2
 timer = maxtime
 score = 0
-player.x = love.graphics.getWidth()-50
-player.y = love.graphics.getHeight()
+player.collider:setPosition(love.graphics.getWidth()-50, love.graphics.getHeight())
 healthbar.setHealth(100)
 
 
